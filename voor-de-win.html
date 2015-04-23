@@ -1,0 +1,97 @@
+<head>
+  <title>Voor de win!</title>
+</head>
+
+<body>
+  {{> navbar}}
+
+  {{#if showLotteries}}
+    {{> lotteries}}
+  {{else}}
+    {{> notLoggedIn}}
+  {{/if}}
+
+</body>
+
+
+<template name="navbar">
+  <div class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Voor de win!</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+          {{> loginButtons}}
+      </ul>
+    </div>
+  </div>
+</template>
+
+
+<template name="notLoggedIn">
+  <div class="not-logged-in">
+    <p>Registreer of log in om mee te spelen.</p>
+  </div>
+</template>
+
+
+<template name="lotteries">
+  <div class="container">
+
+    <form class="new-lottery">
+      <input type="text" name="name" placeholder="Voeg een loterij toe" />
+    </form>
+
+    <div class="lotteries">
+      {{#each lotteries}}
+        {{> lottery}}
+      {{/each}}
+    </div>
+
+  </div>
+</template>
+
+
+<template name="lottery">
+  <div class="lottery">
+
+    <div>{{name}}</div>
+
+    {{#if showJoin}}
+      <button class="join">Doe mee!</button>
+    {{/if}}
+
+    {{#if showPlay}}
+      <button class="start">Start de loterij!</button>
+    {{/if}}
+
+    {{#if showWinner}}
+      <div class="winner">
+        De winnaar is:
+        <span>{{countdown}}</span>
+        <span>{{winner.username}}</span>
+      </div>
+    {{/if}}
+
+    <div class="participants">
+      Deelnemers:
+      <ul>
+        {{#each participants}}
+          {{> participant}}
+        {{/each}}
+      </ul>
+    </div>
+
+  </div>
+</template>
+
+
+<template name="participant">
+  <li>{{username}}</li>
+</template>
