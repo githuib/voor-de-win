@@ -41,11 +41,13 @@
               <div class="panel-heading">Uitslag</div>
               <div class="panel-body">
                 {{#if showWinner}}
-                  <h1 class="winner">
-                    De winnaar is:
-                    <span>{{countdown}}</span>
-                    <span>{{winner.username}}</span>
-                  </h1>
+                  {{#if isMe}}
+                    <h1 class="text-success">Je hebt gewonnen!!!</h1>
+                  {{else}} {{#if isOther}}
+                    <h5 class="text-danger">Helaas, {{winner.username}} heeft gewonnen.</h5>
+                  {{else}}
+                    <h2>{{countdown}}</h2>
+                  {{/if}}{{/if}}
                 {{/if}}
               </div>
             </div>

@@ -22,10 +22,21 @@ Template.lottery.helpers
     # bind value of "countdown" element to reactive variable
     Template.instance().countdown.get()
 
+  isMe: ->
+    # logged in user has won
+    lottery = Lotteries.findOne {_id: @_id}
+    lottery.winner._id == Meteor.userId()
+
+  isOther: ->
+    # Someone else has won
+    lottery = Lotteries.findOne {_id: @_id}
+    lottery.winner? && lottery.winner._id != Meteor.userId()
+
 Template.lottery.events
   'click .join': (evt) ->
     # let current user join a lottery
     Meteor.call 'joinLottery', @_id, Meteor.user()
+
   'click .start': (evt, template) ->
     lotteryId = @_id
     # let current user join a lottery
