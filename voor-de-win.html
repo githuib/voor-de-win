@@ -5,11 +5,13 @@
 <body>
   {{> navbar}}
 
-  {{#if showLotteries}}
-    {{> lotteries}}
-  {{else}}
-    {{> notLoggedIn}}
-  {{/if}}
+  <div class="container">
+    {{#if showLotteries}}
+      {{> lotteries}}
+    {{else}}
+      {{> notLoggedIn}}
+    {{/if}}
+  </div>
 
 </body>
 
@@ -35,25 +37,32 @@
 
 
 <template name="notLoggedIn">
-  <div class="not-logged-in">
-    <p>Registreer of log in om mee te spelen.</p>
+  <div class="not-logged-in alert alert-danger" role="alert">
+    <p>Kies rechtsbovenin voor aanmelden / registreren om mee te spelen.</p>
   </div>
 </template>
 
 
 <template name="lotteries">
-  <div class="container">
-
-    <form class="new-lottery">
-      <input type="text" name="name" placeholder="Voeg een loterij toe" />
-    </form>
-
-    <div class="lotteries">
-      {{#each lotteries}}
-        {{> lottery}}
-      {{/each}}
+  <form class="new-lottery">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" name="name" class="form-control" placeholder="Voeg een loterij toe" required>
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit">Voeg toe</button>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
+  </form>
 
+  <div class="lotteries">
+    {{#each lotteries}}
+      {{> lottery}}
+    {{/each}}
   </div>
 </template>
 
@@ -61,31 +70,59 @@
 <template name="lottery">
   <div class="lottery">
 
-    <div>{{name}}</div>
-
-    {{#if showJoin}}
-      <button class="join">Doe mee!</button>
-    {{/if}}
-
-    {{#if showPlay}}
-      <button class="start">Start de loterij!</button>
-    {{/if}}
-
-    {{#if showWinner}}
-      <div class="winner">
-        De winnaar is:
-        <span>{{countdown}}</span>
-        <span>{{winner.username}}</span>
+    <div class="participants panel panel-info">
+      <div class="panel-heading">
+        Loterij <strong>{{name}}</strong>
       </div>
-    {{/if}}
 
-    <div class="participants">
-      Deelnemers:
-      <ul>
-        {{#each participants}}
-          {{> participant}}
-        {{/each}}
-      </ul>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6">
+            {{#if showJoin}}
+              <div class="form-group">
+                <button class="join btn btn-success">Doe mee!</button>
+              </div>
+            {{/if}}
+
+            {{#if showPlay}}
+              <div class="form-group">
+                <button class="start btn btn-danger">Start de loterij!</button>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="participants panel panel-default">
+              <div class="panel-heading">Deelnemers</div>
+              <ul class="list-group">
+                {{#each participants}}
+                  {{> participant}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="participants panel panel-default">
+              <div class="panel-heading">Uitslag</div>
+              <div class="panel-body">
+                {{#if showWinner}}
+                  <h1 class="winner">
+                    De winnaar is:
+                    <span>{{countdown}}</span>
+                    <span>{{winner.username}}</span>
+                  </h1>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -93,5 +130,5 @@
 
 
 <template name="participant">
-  <li>{{username}}</li>
+  <li class="list-group-item">{{username}}</li>
 </template>
