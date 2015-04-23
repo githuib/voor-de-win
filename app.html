@@ -1,0 +1,16 @@
+<head>
+  <title>Voor de win!</title>
+</head>
+
+<body>
+  {{> navbar}}
+
+  <div class="container">
+    {{#if showLotteries}}
+      {{> lotteries}}
+    {{else}}
+      {{> notLoggedIn}}
+    {{/if}}
+  </div>
+
+</body>

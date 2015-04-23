@@ -1,0 +1,60 @@
+<template name="lottery">
+  <div class="lottery">
+
+    <div class="participants panel panel-info">
+      <div class="panel-heading">
+        Loterij <strong>{{name}}</strong>
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6">
+            {{#if showJoin}}
+              <div class="form-group">
+                <button class="join btn btn-success">Doe mee!</button>
+              </div>
+            {{/if}}
+
+            {{#if showPlay}}
+              <div class="form-group">
+                <button class="start btn btn-danger">Start de loterij!</button>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="participants panel panel-default">
+              <div class="panel-heading">Deelnemers</div>
+              <ul class="list-group">
+                {{#each participants}}
+                  {{> participant}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="participants panel panel-default">
+              <div class="panel-heading">Uitslag</div>
+              <div class="panel-body">
+                {{#if showWinner}}
+                  <h1 class="winner">
+                    De winnaar is:
+                    <span>{{countdown}}</span>
+                    <span>{{winner.username}}</span>
+                  </h1>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</template>
