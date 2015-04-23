@@ -1,5 +1,5 @@
 <template name="lottery">
-  <div class="lottery">
+  {{#if canJoin}}
 
     <div class="participants panel panel-info">
       <div class="panel-heading">
@@ -58,5 +58,5 @@
 
     </div>
 
-  </div>
+  {{/if}}
 </template>

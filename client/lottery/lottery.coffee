@@ -2,6 +2,12 @@ Template.lottery.created = ->
   this.countdown = new (ReactiveVar)('')
 
 Template.lottery.helpers
+  canJoin: ->
+    # only show lottery if lottery has not started yet or logged in user participated
+    lottery = Lotteries.findOne {_id: @_id}
+    participantIds = (p._id for p in lottery.participants)
+    Meteor.userId() in participantIds || (not lottery.winner? && Template.instance().countdown.get() == '')
+
   showJoin: ->
     # only show "Join" button when user is not already participating in the lottery and the lottery is not started yet
     lottery = Lotteries.findOne {_id: @_id}
