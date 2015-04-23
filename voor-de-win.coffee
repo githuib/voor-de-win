@@ -63,7 +63,7 @@ if Meteor.isClient
       winner = lottery.participants[Math.floor(Math.random() * lottery.participants.length)]
 
       # start countdown
-      count = 5
+      count = 30
       template.countdown.set count
       interval = setInterval((->
         count = count - 1
@@ -73,8 +73,8 @@ if Meteor.isClient
           Meteor.call 'winLottery', lotteryId, winner
           template.countdown.set ''
         else
-          template.countdown.set count
-      ), 1000)
+          template.countdown.set lottery.participants[count % lottery.participants.length].username
+      ), 100)
 
   # accounts
 
