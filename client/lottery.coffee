@@ -3,13 +3,13 @@ Template.lottery.created = ->
 
 Template.lottery.helpers
   showJoin: ->
-    # only show "Join" button when user is not already participating in the lottery
+    # only show "Join" button when user is not already participating in the lottery and the lottery is not started yet
     lottery = Lotteries.findOne {_id: @_id}
     participantIds = (p._id for p in lottery.participants)
-    Meteor.userId() not in participantIds
+    Meteor.userId() not in participantIds && not lottery.winner? && Template.instance().countdown.get() == ''
 
   showPlay: ->
-    # show "Play" button when there is at least one other player and the lottery is not finished yet
+    # show "Play" button when there is at least one other player and the lottery is not started yet
     lottery = Lotteries.findOne {_id: @_id}
     lottery.participants.length > 1 && not lottery.winner? && Template.instance().countdown.get() == ''
 
